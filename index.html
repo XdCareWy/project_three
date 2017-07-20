@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" type="text/css" href="./dist/css/app.min.css">
+</head>
+<body>
+	<div class="nav" data-bind="css: {hide: hideStatus}">
+		<p>address list</p>
+		<input type="text" data-bind="value: filterText, event: {input: filterEvent}, valueUpdate: 'input'">
+		<button data-bind="click: filterEvent">Filter</button>
+		<ul data-bind="foreach: locations">
+			<li data-bind="text: name, click: $parent.setLoaction, visible: visible"></li>
+		</ul>
+	</div>
+	<div class="content-right">
+		<div class="right-top"><img src="./dist/images/collect.png" data-bind="click: toggleNavbar"></div>
+		<div class="map" id="map"></div>
+	</div>
+
+	<script type="text/javascript" src="./vendor/jquery.min.js"></script>
+	<script type="text/javascript" src="./vendor/knockout-3.4.2.debug.js"></script>
+	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBoH7S8l9SiNTUljfhq_9G4r7CLimXLF7g&callback=initMap" type="text/javascript"></script>
+	<script type="text/javascript" src="./dist/js/app.js"></script>
+	<script type="text/javascript" src="./dist/js/map.js"></script>
+</body>
+</html>
