@@ -11,7 +11,13 @@
 		<input type="text" data-bind="value: filterText, event: {input: filterEvent}, valueUpdate: 'input'">
 		<button data-bind="click: filterEvent">Filter</button>
 		<ul data-bind="foreach: locations">
-			<li data-bind="text: name, click: $parent.setLoaction, visible: visible"></li>
+			<li data-bind=" click: $parent.setLoaction, visible: visible">
+				<div class="nav-left">
+					<div data-bind="text: name"></div>
+					<h5 data-bind="text: description"></h5>
+				</div>
+				<div class="nav-right"><img data-bind="attr: {src: imgSrc}"></div>
+			</li>
 		</ul>
 	</div>
 	<div class="content-right">
@@ -22,7 +28,7 @@
 	<script type="text/javascript" src="./vendor/jquery.min.js"></script>
 	<script type="text/javascript" src="./vendor/knockout-3.4.2.debug.js"></script>
 	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBoH7S8l9SiNTUljfhq_9G4r7CLimXLF7g&callback=initMap" type="text/javascript"></script>
-	<script type="text/javascript" src="./dist/js/app.js"></script>
 	<script type="text/javascript" src="./dist/js/map.js"></script>
+	<script type="text/javascript" src="./dist/js/app.js"></script>
 </body>
 </html>

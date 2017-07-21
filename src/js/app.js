@@ -58,6 +58,8 @@ function Location(data) {
 	self.name = ko.observable(data.name);
 	self.latlng = ko.observable(data.latlng);
 	self.visible = ko.observable(data.visible);
+	self.description = ko.observable(data.description);
+	self.imgSrc = ko.observable("http://maps.googleapis.com/maps/api/streetview?size=600x300&location="+data.name);
 }
 
 // This is a simple *viewmodel* - JavaScript that defines the data and behavior of your UI
@@ -80,15 +82,11 @@ function LocationViewModel() {
 			}
 		});
 	}
-
 	self.setLoaction = function(v) {
-		console.log(v.name())
+		self.getData(v)
 		for (var i = 0; i < markers.length; i++) {
-			if(markers[i].id !== v.id()){
-          		markers[i].setMap(null);
-			}else {
+			if(markers[i].id === v.id()){
 				map.setCenter(v.latlng());
-				map.setZoom(15)
 				markers[i].setMap(map);
 			}
         }
@@ -97,28 +95,22 @@ function LocationViewModel() {
 	self.toggleNavbar = function() {
 		self.hideStatus(!self.hideStatus());
 	}
-}
 
-function getData(city) {
-	var wiki_url = "https://zh.wikipedia.org/w/api.php?action=opensearch&search="+city+"&format=json&callback=wikiCallback";
-	var datas = [];
-    $.ajax({
-        url: wiki_url,
-        dataType: "jsonp",
-        success: function(data){
-            var articleList = data[1];
-            for (var i = 0; i < articleList.length; i++) {
-                articleStr = articleList[i];
-                var u = 'https://zh.wikipedia.org/wiki/' + articleStr;
-                datas.push({
-                	articleStr: articleStr,
-                	url: u
-                });
-            }
-            return datas;
-        }
-    });
-    return "loding";
+	self.getData = function(v) {
+		var wiki_url = "https://zh.wikipedia.org/w/api.php?action=opensearch&search="+v.name()+"&format=json&callback=wikiCallback";
+	    $.ajax({
+	        url: wiki_url,
+	        dataType: "jsonp",
+	        success: function(res){
+	        	var res_data = res[2][0] || res[2][1] || res[1][0];
+	        	v.description(res_data.slice(0,30));
+	        }
+	    })
+	    .fail(function() {
+	    	v.description("服务异常");
+	    });
+	}
+
 }
 
 // Activates knockout.js

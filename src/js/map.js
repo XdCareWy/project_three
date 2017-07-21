@@ -1,5 +1,6 @@
 var map;
 var markers = [];
+var hightlightIcon;
 function initMap() {
 	map = new google.maps.Map(document.getElementById("map"), {
 		center: {lat: 39.996203, lng: 116.480772},
@@ -8,7 +9,7 @@ function initMap() {
 
 	var infoWindow = new google.maps.InfoWindow();
 	var bound = new google.maps.LatLngBounds();
-	var hightlightIcon = markerIcon("beachflag.png");
+	hightlightIcon = markerIcon("beachflag.png");
 
 	// create markers and add event
 	for(var i = 0; i < datas.length; i++) {
@@ -42,7 +43,6 @@ function initMap() {
 function populateInfoWindow(marker, infoWindow) {
 	if(infoWindow.marker !== marker){
 		infoWindow.marker = marker;
-		getData(marker.title);
 		infoWindow.setContent(marker.title);
 		infoWindow.open(map, marker);
 	}
