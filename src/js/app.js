@@ -77,8 +77,10 @@ function LocationViewModel() {
 		self.locations().map(function(item) {
 			if(!item.name().match(self.filterText())){
 				item.visible(false);
+				markers[item.id()-1].setVisible(false)
 			}else {
 				item.visible(true);
+				markers[item.id()-1].setVisible(true)
 			}
 		});
 	}

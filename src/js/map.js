@@ -43,8 +43,16 @@ function initMap() {
 function populateInfoWindow(marker, infoWindow) {
 	if(infoWindow.marker !== marker){
 		infoWindow.marker = marker;
+		// add animation for marker
+		marker.setAnimation(google.maps.Animation.BOUNCE);
+            setTimeout(function() {
+                marker.setAnimation(null);
+            }, 1380);
 		infoWindow.setContent(marker.title);
 		infoWindow.open(map, marker);
+		infoWindow.addListener("closeclick", function(){
+			infoWindow.marker = null;
+		});
 	}
 }
 
@@ -56,4 +64,8 @@ function markerIcon(img) {
 		anchor: new google.maps.Point(10, 34),
 		scaledSize: new google.maps.Size(21,34)
 	};
+}
+
+function mapErrorHandle() {
+	alert("Google map's api is error!");
 }
