@@ -5,3 +5,5 @@
 2. ```npm install```
 3. ```gulp```
 4. 打开浏览器,输入```localhost:8000```
+# FAQ
+本项目在编写过程中请求google和wikipedia的api,所以需要代理一下才能正常使用.
